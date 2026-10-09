@@ -88,6 +88,12 @@ function fpResetPassword(email){ return fpAuth.sendPasswordResetEmail(email); }
 /* Header auth state: account icon with profile dropdown */
 function fpInitHeaderAuth(){
   fpOnAuth(function(user){
+    // Mark auth as resolved so buttons become visible (fixes logged-out flash)
+    var hdRight = document.querySelector('.hd-right');
+    if(hdRight){
+      hdRight.classList.add('fp-auth-ready');
+      if(user) hdRight.classList.add('fp-authed');
+    }
     if(document.getElementById('fp-avatar')) return; // already rendered
     var loginBtn = document.querySelector('.btn-login');
     var signupBtn = document.querySelector('.btn-sm-hd');
