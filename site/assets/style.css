@@ -20,10 +20,10 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(10,10,11,.92);backd
 .hd-right{display:flex;align-items:center;gap:14px;color:var(--gray);font-size:14px}
 select.lang{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px}
 .theme{display:flex;align-items:center;gap:8px;font-size:13px}
-.switch{width:46px;height:24px;border-radius:999px;background:var(--gold);position:relative;cursor:pointer;transition:background .25s ease}
-.switch::after{content:'';position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:#000;transition:right .25s ease}
-.switch[aria-checked="true"]::after{right:25px}
-.switch[aria-checked="true"]{background:#e8e8e8}
+.switch{width:46px;height:24px;border-radius:999px;background:#3a3a3e;position:relative;cursor:pointer;transition:background .25s ease;border:1px solid #4a4a4e}
+.switch::after{content:'';position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:right .25s ease;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.switch[aria-checked="true"]::after{right:24px}
+.switch[aria-checked="true"]{background:#e8c15a;border-color:#e8c15a}
 /* subbar */
 .subbar{border-bottom:1px solid var(--border);background:#0e0e10}
 .sub-in{display:flex;align-items:center;justify-content:space-between;height:52px;font-size:13px}

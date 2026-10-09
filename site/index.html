@@ -80,13 +80,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="/assets/i18n.js"></script>
 <script src="/assets/firebase.js"></script>
-<script>
-(function(){var s=document.getElementById('themeSw');if(!s)return;
-function setL(l){document.body.classList.toggle('light',l);s.setAttribute('aria-checked',l?'true':'false');try{localStorage.setItem('fp-theme',l?'light':'dark')}catch(e){}}
-try{if(localStorage.getItem('fp-theme')==='light')setL(true);}catch(e){}
-s.addEventListener('click',function(){setL(!document.body.classList.contains('light'))});
-})();
-</script>
 
 <script src="/assets/home.js"></script>
 </body></html>
