@@ -17,7 +17,12 @@ function fpGetDb(){ return fpDb; }
 function fpOnAuth(cb){ fpAuth.onAuthStateChanged(cb); }
 function fpGoogle(){
   var provider = new firebase.auth.GoogleAuthProvider();
-  // Try popup first, fall back to redirect if it fails
+  var isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  // Mobile: use redirect directly (popups are unreliable on mobile browsers)
+  if(isMobile){
+    return fpAuth.signInWithRedirect(provider);
+  }
+  // Desktop: try popup first, fall back to redirect if it fails
   return fpAuth.signInWithPopup(provider).catch(function(err){
     if(err.code==='auth/popup-blocked'||err.code==='auth/popup-closed-by-user'||err.code==='auth/argument-error'){
       return fpAuth.signInWithRedirect(provider);
