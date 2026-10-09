@@ -39,6 +39,7 @@ function fpSendVerification(){
 function fpSignUp(email, pw){ return fpAuth.createUserWithEmailAndPassword(email, pw); }
 function fpSignIn(email, pw){ return fpAuth.signInWithEmailAndPassword(email, pw); }
 function fpSignOut(){ return fpAuth.signOut(); }
+function fpResetPassword(email){ return fpAuth.sendPasswordResetEmail(email); }
 
 /* Header auth state: account icon with profile dropdown */
 document.addEventListener('DOMContentLoaded', function(){
@@ -220,6 +221,19 @@ document.addEventListener('DOMContentLoaded', function(){
     // Check redirect result
     if(typeof fpCheckRedirect === 'function'){
       fpCheckRedirect().then(function(res){ if(res && res.user) location.href = '/'; });
+    }
+
+    var forgotLink = document.getElementById('forgotPw');
+    if(forgotLink && emailEl){
+      forgotLink.onclick = function(e){
+        e.preventDefault();
+        var e2 = emailEl.value.trim();
+        if(!e2){ showErr('Enter your email address above first, then click "Forgot password?".'); emailEl.focus(); return; }
+        fpResetPassword(e2).then(function(){
+          if(errEl){ errEl.style.color = '#4ade80'; }
+          showOk('Password reset email sent. Check your inbox.');
+        }).catch(function(err){ showErr(err.message); });
+      };
     }
 
     // Redirect if already logged in
