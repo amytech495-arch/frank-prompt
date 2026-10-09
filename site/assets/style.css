@@ -108,3 +108,22 @@ footer{border-top:1px solid var(--border);margin-top:70px;padding:40px 0 30px}
 body.light{--bg:#fafaf9;--card:#ffffff;--panel:#f4f4f2;--text:#111113;--gray:#5b5b60;--dim:#8a8a90;--border:#e4e4e0}
 body.light header.site{background:rgba(250,250,249,.92)}
 body.light .hero-tan{color:#111}
+/* Frank Prompt additions */
+.logo .fp{background:var(--gold);color:#000;font-weight:800;border-radius:9px;padding:4px 9px;font-size:14px}
+.btn-login{color:var(--text);font-size:14px;font-weight:600;padding:8px 14px}
+.btn-sm-hd{padding:9px 20px;font-size:14px}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:8px}
+.ft-grid h4{font-size:13px;color:var(--gray);margin-bottom:12px;font-weight:600}
+.ft-grid a{display:block;color:var(--dim);font-size:14px;margin:8px 0}
+.ft-tag{color:var(--gray);font-size:14px;margin-top:12px;max-width:280px}
+.pricing{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:24px}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;position:relative}
+.price-card.pro{border-color:var(--gold);box-shadow:0 0 40px rgba(232,196,118,.12)}
+.price-card h3{font-size:20px;margin-bottom:6px}
+.price-card .amt{font-size:44px;font-weight:800;margin:14px 0 4px}
+.price-card .amt span{font-size:15px;color:var(--gray);font-weight:400}
+.price-card ul{list-style:none;margin:20px 0;color:var(--gray);font-size:14px}
+.price-card li{margin:10px 0;padding-left:24px;position:relative}
+.price-card li::before{content:'✓';color:var(--gold);position:absolute;left:0;font-weight:700}
+.badge-pro{position:absolute;top:-14px;right:28px;background:var(--gold);color:#000;font-size:11px;font-weight:800;border-radius:999px;padding:5px 16px;letter-spacing:.08em}
+@media(max-width:800px){.pricing{grid-template-columns:1fr}.ft-grid{grid-template-columns:1fr 1fr}}

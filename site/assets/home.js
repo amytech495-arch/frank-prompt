@@ -20,7 +20,7 @@ function cardHTML(p){
     '<span class="tag-id">ID '+p.id+'</span><span class="tag-free">Free</span></div>'+
     '<div class="body"><div class="cat">'+p.category+'</div><h3>'+p.title+'</h3>'+
     '<div class="row"><button class="btn-sm">Save</button></div>'+
-    '<div class="foot"><span class="words">'+(p.words?p.words.toLocaleString()+' words':'—')+'</span>'+
+    '<div class="foot"><span class="words">'+(p.words?p.words.toLocaleString():'—')+' <span data-i18n="words">words</span></span>'+
     '<span class="actions"><a class="btn-sm" href="/prompt/'+p.id+'">Preview</a>'+
     '<a class="btn-sm btn-gold" style="border:none" href="/prompt/'+p.id+'">View prompt</a></span>'+
     '</div></div></article>';
@@ -29,7 +29,7 @@ function render(){
   var list=filtered();var pages=Math.max(1,Math.ceil(list.length/PER));
   if(state.page>pages)state.page=pages;
   var slice=list.slice((state.page-1)*PER,state.page*PER);
-  document.getElementById('grid').innerHTML=slice.map(cardHTML).join('')||'<p style="color:var(--gray)">No prompts found.</p>';
+  document.getElementById('grid').innerHTML=slice.map(cardHTML).join('');applyI18n()||'<p style="color:var(--gray)">No prompts found.</p>';
   document.getElementById('count').innerHTML='<b>'+list.length+'</b> prompts';
   document.getElementById('showing').textContent='Showing '+((state.page-1)*PER+1)+'–'+Math.min(state.page*PER,list.length)+' of '+list.length;
   var pg=document.getElementById('pager');var h='';
@@ -40,7 +40,7 @@ function render(){
   if(state.page<pages-2)h+='<span>...</span>';
   if(pages>1)btn(pages,String(pages),state.page===pages);
   if(state.page<pages)btn(state.page+1,'Next',false);
-  pg.innerHTML=h;
+  pg.innerHTML=h;applyI18n();
   pg.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();state.page=+a.dataset.p;render();document.getElementById('grid').scrollIntoView({behavior:'smooth',block:'start'});});});
 }
 window.addEventListener('DOMContentLoaded',function(){
