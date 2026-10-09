@@ -27,7 +27,11 @@ function fpCheckRedirect(){
     if(el) el.textContent = err.message;
   });
 }
-function fpSendVerification(){ var u = fpAuth.currentUser; return u ? u.sendEmailVerification() : Promise.reject(new Error('Not signed in')); }
+function fpSendVerification(){
+  var u = fpAuth.currentUser;
+  if(!u) return Promise.reject(new Error('Not signed in'));
+  return u.sendEmailVerification({url:'https://frank-prompt.vercel.app/login',handleCodeInApp:false});
+}
 function fpSignUp(email, pw){ return fpAuth.createUserWithEmailAndPassword(email, pw); }
 function fpSignIn(email, pw){ return fpAuth.signInWithEmailAndPassword(email, pw); }
 function fpSignOut(){ return fpAuth.signOut(); }
