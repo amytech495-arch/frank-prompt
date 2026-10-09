@@ -128,3 +128,26 @@ function applyI18n(){
 }
 document.addEventListener('DOMContentLoaded',function(){fpSetLang(fpLang());
   var sel=document.getElementById('langSel');if(sel)sel.addEventListener('change',function(){fpSetLang(sel.value);});});
+
+/* Firebase header auth state (injected) */
+(function(){
+  if(window._fpAuthInit) return; window._fpAuthInit = true;
+  function load(src){return new Promise(function(res,rej){var s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+  var cfg = {apiKey:"AIzaSyDGXh6r1gHnVU5xAMJbchm6JhASmmZvXGs",authDomain:"frank-prompt.firebaseapp.com",projectId:"frank-prompt"};
+  load("https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js")
+    .then(function(){return load("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js");})
+    .then(function(){
+      firebase.initializeApp(cfg);
+      firebase.auth().onAuthStateChanged(function(user){
+        var loginBtn = document.querySelector('.btn-login');
+        var signupBtn = document.querySelector('.btn-sm-hd');
+        if(!loginBtn || !signupBtn) return;
+        if(user){
+          loginBtn.textContent = (user.email||'Account').split('@')[0];
+          loginBtn.href = '#'; loginBtn.onclick = function(e){e.preventDefault();};
+          signupBtn.textContent = 'Log out'; signupBtn.href = '#';
+          signupBtn.onclick = function(e){e.preventDefault();firebase.auth().signOut().then(function(){location.reload();});};
+        }
+      });
+    }).catch(function(){});
+})();
