@@ -128,7 +128,6 @@ function applyI18n(){
 }
 document.addEventListener('DOMContentLoaded',function(){fpSetLang(fpLang());
   var sel=document.getElementById('langSel');if(sel)sel.addEventListener('change',function(){fpSetLang(sel.value);});});
-
 /* Firebase header auth state (injected) */
 (function(){
   if(window._fpAuthInit) return; window._fpAuthInit = true;
@@ -141,13 +140,18 @@ document.addEventListener('DOMContentLoaded',function(){fpSetLang(fpLang());
       firebase.auth().onAuthStateChanged(function(user){
         var loginBtn = document.querySelector('.btn-login');
         var signupBtn = document.querySelector('.btn-sm-hd');
-        if(!loginBtn || !signupBtn) return;
-        if(user){
-          loginBtn.textContent = (user.email||'Account').split('@')[0];
-          loginBtn.href = '#'; loginBtn.onclick = function(e){e.preventDefault();};
-          signupBtn.textContent = 'Log out'; signupBtn.href = '#';
-          signupBtn.onclick = function(e){e.preventDefault();firebase.auth().signOut().then(function(){location.reload();});};
-        }
+        if(!loginBtn || !signupBtn || !user) return;
+        var name = user.displayName || (user.email||'U').split('@')[0];
+        var initial = name.charAt(0).toUpperCase();
+        // Replace login button with account avatar icon
+        var avatar = document.createElement('a');
+        avatar.href = '#';
+        avatar.title = user.email || name;
+        avatar.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#f5c518,#b8860b);color:#111;font-weight:700;font-size:16px;text-decoration:none;margin-right:10px;';
+        avatar.textContent = initial;
+        avatar.onclick = function(e){ e.preventDefault(); if(confirm('Log out of Frank Prompt?')) firebase.auth().signOut().then(function(){location.reload();}); };
+        loginBtn.replaceWith(avatar);
+        signupBtn.style.display = 'none';
       });
     }).catch(function(){});
 })();
