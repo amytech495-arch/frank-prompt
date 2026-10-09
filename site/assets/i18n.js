@@ -216,7 +216,20 @@ document.addEventListener('DOMContentLoaded', function(){
   if(window._fpBurgerInit) return; window._fpBurgerInit = true;
   var nav = document.querySelector('.nav');
   var hdIn = document.querySelector('.hd-in');
+  var hdRight = document.querySelector('.hd-right');
   if(!nav || !hdIn) return;
+  // On mobile, move hd-right (lang/login/theme) into the hamburger dropdown
+  var mq = window.matchMedia('(max-width:768px)');
+  function placeHdRight(){
+    if(!hdRight) return;
+    if(mq.matches){
+      if(hdRight.parentNode !== nav) nav.appendChild(hdRight);
+    } else {
+      if(hdRight.parentNode !== hdIn) hdIn.appendChild(hdRight);
+    }
+  }
+  if(mq.addEventListener){ mq.addEventListener('change', placeHdRight); }
+  placeHdRight();
   var existing = document.getElementById('hamburger');
   if(existing) existing.remove();
   var btn = document.createElement('button');
