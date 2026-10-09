@@ -96,9 +96,10 @@ window.addEventListener('DOMContentLoaded',function(){
   var s=document.getElementById('q');
   document.getElementById('searchBtn').addEventListener('click',function(){state.q=s.value;state.page=1;render();});
   s.addEventListener('keydown',function(e){if(e.key==='Enter'){state.q=s.value;state.page=1;render();}});
+  s.addEventListener('input',function(){if(!s.value.trim()&&state.q){state.q='';state.page=1;render();}});
   document.getElementById('catSel').addEventListener('change',function(e){state.cat=e.target.value;state.page=1;render();});
   document.getElementById('sortSel').addEventListener('change',function(e){state.sort=e.target.value;state.page=1;render();});
-  document.getElementById('surpriseBtn').addEventListener('click',function(){if(!CATALOG.length)return;var p=CATALOG[Math.floor(Math.random()*CATALOG.length)];location.href='/prompt/'+p.id;});
+  document.getElementById('surpriseBtn').addEventListener('click',function(){if(!CATALOG.length){location.href='/login';return;}var p=CATALOG[Math.floor(Math.random()*CATALOG.length)];location.href='/prompt/'+p.id;});
   document.getElementById('findBtn').addEventListener('click',function(){
     var fc=document.getElementById('fcat');
     state.cat=fc.value;document.getElementById('catSel').value=fc.value;state.page=1;render();
