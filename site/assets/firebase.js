@@ -9,6 +9,9 @@ const firebaseConfig = {
 };
 if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const fpAuth = firebase.auth();
+let fpDb = null;
+try { fpDb = firebase.firestore(); } catch(e) { console.warn('Firestore not loaded', e); }
+function fpGetDb(){ return fpDb; }
 
 function fpOnAuth(cb){ fpAuth.onAuthStateChanged(cb); }
 function fpGoogle(){
