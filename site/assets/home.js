@@ -99,7 +99,7 @@ window.addEventListener('DOMContentLoaded',function(){
   s.addEventListener('input',function(){if(!s.value.trim()&&state.q){state.q='';state.page=1;render();}});
   document.getElementById('catSel').addEventListener('change',function(e){state.cat=e.target.value;state.page=1;render();});
   document.getElementById('sortSel').addEventListener('change',function(e){state.sort=e.target.value;state.page=1;render();});
-  document.getElementById('surpriseBtn').addEventListener('click',function(){if(!CATALOG.length){location.href='/login';return;}var p=CATALOG[Math.floor(Math.random()*CATALOG.length)];location.href='/prompt/'+p.id;});
+  document.getElementById('surpriseBtn').addEventListener('click',function(){if(!CATALOG.length){if(window.firebase&&firebase.apps.length&&firebase.auth().currentUser){return;}location.href='/login';return;}var p=CATALOG[Math.floor(Math.random()*CATALOG.length)];location.href='/prompt/'+p.id;});
   document.getElementById('findBtn').addEventListener('click',function(){
     var fc=document.getElementById('fcat');
     state.cat=fc.value;document.getElementById('catSel').value=fc.value;state.page=1;render();
