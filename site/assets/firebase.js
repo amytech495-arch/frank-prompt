@@ -86,8 +86,9 @@ function fpSignOut(){ return fpAuth.signOut(); }
 function fpResetPassword(email){ return fpAuth.sendPasswordResetEmail(email); }
 
 /* Header auth state: account icon with profile dropdown */
-document.addEventListener('DOMContentLoaded', function(){
+function fpInitHeaderAuth(){
   fpOnAuth(function(user){
+    if(document.getElementById('fp-avatar')) return; // already rendered
     var loginBtn = document.querySelector('.btn-login');
     var signupBtn = document.querySelector('.btn-sm-hd');
     if(!loginBtn || !signupBtn || !user) return;
@@ -210,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function(){
     loginBtn.replaceWith(avatarWrap);
     signupBtn.style.display = 'none';
   });
-});
+}
 
 /* Auth page handlers (moved from inline for reliability) */
 (function(){
@@ -303,4 +304,14 @@ document.addEventListener('DOMContentLoaded', function(){
   } else {
     init();
   }
+})();
+
+/* Robust header auth init */
+(function(){
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', fpInitHeaderAuth);
+  } else {
+    fpInitHeaderAuth();
+  }
+  setTimeout(fpInitHeaderAuth, 1500);
 })();
