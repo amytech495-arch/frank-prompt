@@ -82,6 +82,16 @@ fpCheckRedirect().then(function(res){ if(res && res.user) location.href='/'; });
 <script src="/assets/i18n.js"></script>
 <script src="/assets/firebase.js"></script>
 <script>
+// Redirect already-logged-in users away from auth pages
+document.addEventListener('DOMContentLoaded', function(){
+  if(window.firebase && firebase.apps.length){
+    firebase.auth().onAuthStateChanged(function(user){
+      if(user) location.href = '/';
+    });
+  }
+});
+</script>
+<script>
 (function(){var s=document.getElementById('themeSw');if(!s)return;
 function setL(l){document.body.classList.toggle('light',l);s.setAttribute('aria-checked',l?'true':'false');try{localStorage.setItem('fp-theme',l?'light':'dark')}catch(e){}}
 try{if(localStorage.getItem('fp-theme')==='light')setL(true);}catch(e){}
