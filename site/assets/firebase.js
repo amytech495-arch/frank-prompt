@@ -166,3 +166,68 @@ document.addEventListener('DOMContentLoaded', function(){
     signupBtn.style.display = 'none';
   });
 });
+
+/* Auth page handlers (moved from inline for reliability) */
+(function(){
+  if(window._fpAuthPagesInit) return; window._fpAuthPagesInit = true;
+  function init(){
+    var goBtn = document.getElementById('go');
+    var googleBtn = document.getElementById('google');
+    var errEl = document.getElementById('err');
+    var emailEl = document.getElementById('email');
+    var pwEl = document.getElementById('pw');
+    var agreeEl = document.getElementById('agree');
+    if(!goBtn || !emailEl) return; // not an auth page
+
+    var isSignup = location.pathname.includes('signup');
+
+    function showErr(msg){
+      if(errEl){ errEl.textContent = msg; errEl.style.color = '#f87171'; }
+    }
+    function showOk(msg){
+      if(errEl){ errEl.textContent = msg; errEl.style.color = '#4ade80'; }
+    }
+
+    if(agreeEl){
+      agreeEl.onchange = function(){ goBtn.disabled = !this.checked; };
+    }
+
+    goBtn.onclick = function(){
+      if(agreeEl && !agreeEl.checked){ showErr('Please agree to the Terms and Privacy Policy.'); return; }
+      var e = emailEl.value.trim(), pw = pwEl.value;
+      if(!e || !pw){ showErr('Please enter email and password.'); return; }
+      if(isSignup){
+        fpSignUp(e, pw).then(function(){
+          return fpSendVerification().then(function(){
+            showOk('Account created! Check your email for a verification link.');
+            setTimeout(function(){ location.href = '/login'; }, 2500);
+          });
+        }).catch(function(err){ showErr(err.message); });
+      } else {
+        fpSignIn(e, pw).then(function(){ location.href = '/'; })
+          .catch(function(err){ showErr('Invalid email or password.'); });
+      }
+    };
+
+    if(googleBtn){
+      googleBtn.onclick = function(){
+        if(agreeEl && !agreeEl.checked){ showErr('Please agree to the Terms and Privacy Policy.'); return; }
+        fpGoogle().then(function(){ location.href = '/'; })
+          .catch(function(err){ showErr(err.message); });
+      };
+    }
+
+    // Check redirect result
+    if(typeof fpCheckRedirect === 'function'){
+      fpCheckRedirect().then(function(res){ if(res && res.user) location.href = '/'; });
+    }
+
+    // Redirect if already logged in
+    fpOnAuth(function(user){ if(user) location.href = '/'; });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

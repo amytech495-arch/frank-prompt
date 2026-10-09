@@ -244,3 +244,28 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 });
+
+/* Theme toggle (moved from inline for reliability) */
+(function(){
+  if(window._fpThemeInit) return; window._fpThemeInit = true;
+  function init(){
+    var s = document.getElementById('themeSw');
+    if(!s) return;
+    function setL(l){
+      document.body.classList.toggle('light', l);
+      s.setAttribute('aria-checked', l ? 'true' : 'false');
+      try{ localStorage.setItem('fp-theme', l ? 'light' : 'dark'); }catch(e){}
+    }
+    try{ if(localStorage.getItem('fp-theme') === 'light') setL(true); }catch(e){}
+    s.addEventListener('click', function(){ setL(!document.body.classList.contains('light')); });
+    // Keyboard support
+    s.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); setL(!document.body.classList.contains('light')); }
+    });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
