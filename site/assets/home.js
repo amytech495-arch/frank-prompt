@@ -1,5 +1,9 @@
 
 var CATALOG=[];
+(function(){
+  var grid = document.getElementById('grid');
+  if(grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--gray)">Loading...</div>';
+})();
 function loadFromFirestore(){
   return firebase.firestore().collection('prompts').get().then(function(snap){
     var arr = [];
@@ -11,6 +15,11 @@ function loadFromFirestore(){
 }
 function showLoginRequired(){
   var grid = document.getElementById('grid');
+  var count = document.getElementById('count');
+  if(count) count.style.display = 'none';
+  // Also hide pagination
+  var pag = document.getElementById('pagination');
+  if(pag) pag.style.display = 'none';
   if(grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;">'
     + '<div style="font-size:48px;margin-bottom:16px;">🔒</div>'
     + '<h3>Log in to browse prompts</h3>'
