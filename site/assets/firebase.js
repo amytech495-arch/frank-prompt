@@ -17,6 +17,8 @@ function fpGetDb(){ return fpDb; }
 function fpOnAuth(cb){ fpAuth.onAuthStateChanged(cb); }
 function fpGoogle(){
   var provider = new firebase.auth.GoogleAuthProvider();
+  // Force account selection to avoid stale-session bounce-back issues
+  try { provider.setCustomParameters({prompt: 'select_account'}); } catch(e) {}
   var isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
   // Mobile: use redirect directly (popups are unreliable on mobile browsers)
   if(isMobile){
@@ -31,11 +33,40 @@ function fpGoogle(){
   });
 }
 function fpCheckRedirect(){
-  return fpAuth.getRedirectResult().catch(function(err){
+  return fpAuth.getRedirectResult().then(function(res){
+    if(res && res.user){
+      // Successful redirect sign-in: ensure Firestore user profile exists, then go home
+      try {
+        if(fpDb){
+          fpDb.collection('users').doc(res.user.uid).set({
+            email: res.user.email || '',
+            displayName: res.user.displayName || '',
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          }, {merge: true}).catch(function(){});
+        }
+      } catch(e) {}
+      if(!location.pathname.includes('/login') && !location.pathname.includes('/signup')){
+        return res; // already on a non-auth page; auth listener will update UI
+      }
+      location.href = '/';
+    }
+    return res;
+  }).catch(function(err){
     var el = document.getElementById('err');
-    if(el) el.textContent = err.message;
+    var msg = err && err.message ? err.message : String(err);
+    // Make unauthorized-domain errors actionable
+    if(err && err.code === 'auth/unauthorized-domain'){
+      msg = 'Sign-in blocked: this domain is not authorized in Firebase Authentication settings. ' + msg;
+    }
+    if(el){ el.textContent = msg; el.style.color = '#f87171'; }
+    else { console.warn('Google redirect sign-in failed:', msg); }
   });
 }
+// Handle Google redirect results on EVERY page (not just auth pages),
+// so the sign-in completes no matter where the OAuth flow returns.
+document.addEventListener('DOMContentLoaded', function(){
+  try { fpCheckRedirect(); } catch(e) { console.warn('fpCheckRedirect failed', e); }
+});
 function fpSendVerification(){
   var u = fpAuth.currentUser;
   if(!u) return Promise.reject(new Error('Not signed in'));
@@ -223,10 +254,7 @@ document.addEventListener('DOMContentLoaded', function(){
       };
     }
 
-    // Check redirect result
-    if(typeof fpCheckRedirect === 'function'){
-      fpCheckRedirect().then(function(res){ if(res && res.user) location.href = '/'; });
-    }
+    // Redirect result is handled globally on DOMContentLoaded (see fpCheckRedirect above)
 
     var forgotLink = document.getElementById('forgotPw');
     if(forgotLink && emailEl){
