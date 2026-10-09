@@ -153,7 +153,7 @@ body.light .hero-tan{color:#111}
   /* Finder card */
   .finder{padding:24px 18px}
   /* Footer watermark: prevent overflow */
-  .watermark{font-size:80px !important;white-space:nowrap;overflow:hidden;max-width:100%}
+  .watermark{font-size:18vw !important;white-space:nowrap;overflow:hidden;max-width:100%;text-align:center}
   footer{overflow:hidden}
   .ft-grid{grid-template-columns:1fr 1fr !important;gap:20px}
   /* Prompt grid single column already handled */

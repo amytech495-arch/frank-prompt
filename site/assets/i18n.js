@@ -216,7 +216,9 @@ document.addEventListener('DOMContentLoaded', function(){
   if(window._fpBurgerInit) return; window._fpBurgerInit = true;
   var nav = document.querySelector('.nav');
   var hdIn = document.querySelector('.hd-in');
-  if(!nav || !hdIn || document.getElementById('hamburger')) return;
+  if(!nav || !hdIn) return;
+  var existing = document.getElementById('hamburger');
+  if(existing) existing.remove();
   var btn = document.createElement('button');
   btn.id = 'hamburger';
   btn.setAttribute('aria-label', 'Menu');
