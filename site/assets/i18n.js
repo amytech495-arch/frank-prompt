@@ -210,3 +210,35 @@ document.addEventListener('DOMContentLoaded', function(){
     acct.appendChild(t);
   }
 });
+
+/* Mobile hamburger menu */
+document.addEventListener('DOMContentLoaded', function(){
+  if(window._fpBurgerInit) return; window._fpBurgerInit = true;
+  var nav = document.querySelector('.nav');
+  var hdIn = document.querySelector('.hd-in');
+  if(!nav || !hdIn || document.getElementById('hamburger')) return;
+  var btn = document.createElement('button');
+  btn.id = 'hamburger';
+  btn.setAttribute('aria-label', 'Menu');
+  btn.innerHTML = '☰';
+  // Insert before the nav
+  hdIn.insertBefore(btn, nav);
+  btn.onclick = function(e){
+    e.stopPropagation();
+    nav.classList.toggle('mobile-open');
+    btn.innerHTML = nav.classList.contains('mobile-open') ? '✕' : '☰';
+  };
+  document.addEventListener('click', function(e){
+    if(!nav.contains(e.target) && e.target !== btn){
+      nav.classList.remove('mobile-open');
+      btn.innerHTML = '☰';
+    }
+  });
+  // Close menu when a link is clicked
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      nav.classList.remove('mobile-open');
+      btn.innerHTML = '☰';
+    });
+  });
+});
