@@ -205,5 +205,8 @@ document.addEventListener('DOMContentLoaded', function(){
     var a = document.createElement('a');
     a.href = '/privacy'; a.textContent = 'Privacy';
     acct.appendChild(a);
+    var t = document.createElement('a');
+    t.href = '/terms'; t.textContent = 'Terms';
+    acct.appendChild(t);
   }
 });

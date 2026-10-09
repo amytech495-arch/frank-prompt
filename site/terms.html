@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Terms of Service · Frank Prompt</title>
+<link rel="stylesheet" href="/assets/style.css">
+</head><body>
+<header class="site"><div class="wrap hd-in">
+  <a class="logo" href="/"><span class="fp">FP</span><span>Frank <span class="pm-gold">Prompt.</span></span></a>
+  <nav class="nav"><a href="/" class="" data-i18n="home">Home</a><a href="/#library" data-i18n="library">My library</a><a href="/#how" data-i18n="how">How to use</a><a href="/#pricing" data-i18n="pricing">Pricing</a></nav>
+  <div class="hd-right">
+    <select class="lang" id="langSel" aria-label="Language"><option value="en">English</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="ar">العربية</option><option value="hi">हिन्दी</option><option value="ur">اردو</option></select>
+    <a class="btn-login" href="/login" data-i18n="login">Log in</a>
+    <a class="btn-gold btn-sm-hd" href="/signup" data-i18n="signup">Sign up</a>
+    <span class="theme"><span class="switch" id="themeSw" role="switch" aria-checked="false" tabindex="0"></span></span>
+  </div>
+</div></header>
+
+<div class="wrap"><div class="panel" style="max-width:720px;margin:60px auto">
+
+<h2>Terms of Service</h2>
+<p class="desc" style="margin:12px 0">Last updated: October 9, 2026</p>
+
+<h4 style="margin-top:24px">1. Acceptance</h4>
+<p class="desc">By creating an account on Frank Prompt, you agree to these Terms of Service and our Privacy Policy.</p>
+
+<h4 style="margin-top:24px">2. The service</h4>
+<p class="desc">Frank Prompt provides a library of AI prompts for creative use. All prompts are provided for your personal and commercial creative projects.</p>
+
+<h4 style="margin-top:24px">3. Your account</h4>
+<p class="desc">You are responsible for keeping your account credentials safe. You must be at least 13 years old to create an account. One account per person.</p>
+
+<h4 style="margin-top:24px">4. Acceptable use</h4>
+<p class="desc">You agree not to: scrape or bulk-download the library, resell or redistribute prompts as a competing product, attempt to breach our security, or use prompts for unlawful content.</p>
+
+<h4 style="margin-top:24px">5. Intellectual property</h4>
+<p class="desc">The Frank Prompt library, branding, and site design belong to us. Prompts you copy may be used freely in your own creative work.</p>
+
+<h4 style="margin-top:24px">6. Termination</h4>
+<p class="desc">We may suspend accounts that violate these terms. You may delete your account at any time by contacting us.</p>
+
+<h4 style="margin-top:24px">7. Disclaimer</h4>
+<p class="desc">The service is provided "as is" without warranties. We are not liable for results from AI tools using our prompts.</p>
+
+<h4 style="margin-top:24px">8. Changes</h4>
+<p class="desc">We may update these terms. Continued use after changes means you accept the new terms.</p>
+
+</div></div>
+<footer><div class="wrap">
+  <div class="ft-grid">
+    <div><a class="logo" href="/"><span class="fp">FP</span><span>Frank <span class="pm-gold">Prompt.</span></span></a>
+      <p class="ft-tag" data-i18n="tagline">Unlock your creative potential with expertly crafted AI prompts.</p></div>
+    <div><h4>Product</h4><a href="/#library">Library</a><a href="/#pricing" data-i18n="pricing">Pricing</a><a href="/#how" data-i18n="how">How to use</a></div>
+    <div><h4>Company</h4><a href="/about">About</a><a href="https://wa.me/2347052092356" target="_blank" rel="noopener">Contact</a><a href="/faq">FAQ</a></div>
+    <div><h4>Account</h4><a href="/login" data-i18n="login">Log in</a><a href="/signup" data-i18n="signup">Sign up</a></div>
+  </div>
+  <div class="watermark">FRANK</div>
+  <div class="copy">© 2026 Frank Prompt. <span data-i18n="rights">All rights reserved.</span></div>
+</div></footer>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="/assets/i18n.js"></script>
+<script src="/assets/firebase.js"></script>
+<script>
+(function(){var s=document.getElementById('themeSw');if(!s)return;
+function setL(l){document.body.classList.toggle('light',l);s.setAttribute('aria-checked',l?'true':'false');try{localStorage.setItem('fp-theme',l?'light':'dark')}catch(e){}}
+try{if(localStorage.getItem('fp-theme')==='light')setL(true);}catch(e){}
+s.addEventListener('click',function(){setL(!document.body.classList.contains('light'))});
+})();
+</script>
+
+<script src="/assets/i18n.js"></script>
+</body></html>
