@@ -9,6 +9,7 @@ const firebaseConfig = {
 };
 if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const fpAuth = firebase.auth();
+function fpEsc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 let fpDb = null;
 try { fpDb = firebase.firestore(); } catch(e) { console.warn('Firestore not loaded', e); }
 function fpGetDb(){ return fpDb; }
@@ -99,11 +100,11 @@ document.addEventListener('DOMContentLoaded', function(){
         + (profile.avatarEmoji || n.charAt(0).toUpperCase()) + '</div>'
         + '<div style="font-size:11px;color:var(--gray,#888);margin-top:6px">Click icon to change</div></div>'
         + '<label style="font-size:11px;color:var(--gray,#888)">USERNAME</label>'
-        + '<input id="fp-dd-name" type="text" value="'+n.replace(/"/g,'&quot;')+'" style="width:100%;margin:4px 0 12px;padding:8px;border-radius:8px;border:1px solid var(--border,#2a2a2a);background:var(--bg,#0d0d0d);color:var(--text,#fff)">'
+        + '<input id="fp-dd-name" type="text" value="'+fpEsc(n)+'" style="width:100%;margin:4px 0 12px;padding:8px;border-radius:8px;border:1px solid var(--border,#2a2a2a);background:var(--bg,#0d0d0d);color:var(--text,#fff)">'
         + '<label style="font-size:11px;color:var(--gray,#888)">EMAIL</label>'
-        + '<div style="margin:4px 0 12px;font-size:14px;word-break:break-all">'+(user.email||'—')+'</div>'
+        + '<div style="margin:4px 0 12px;font-size:14px;word-break:break-all">'+fpEsc(user.email||'—')+'</div>'
         + '<label style="font-size:11px;color:var(--gray,#888)">SIGNED IN WITH</label>'
-        + '<div style="margin:4px 0 12px;font-size:14px">'+providerName+(created ? ' · since '+created : '')+'</div>'
+        + '<div style="margin:4px 0 12px;font-size:14px">'+fpEsc(providerName)+(created ? ' · since '+fpEsc(created) : '')+'</div>'
         + '<button id="fp-dd-save" class="btn-gold" style="width:100%;padding:10px;border-radius:8px;border:none;cursor:pointer;font-weight:600">Save changes</button>'
         + '<button id="fp-dd-logout" style="width:100%;margin-top:8px;padding:10px;border-radius:8px;border:1px solid var(--border,#2a2a2a);background:transparent;color:var(--text,#fff);cursor:pointer">Log out</button>'
         + '<div id="fp-dd-msg" style="font-size:12px;margin-top:8px;min-height:18px"></div>';
@@ -126,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function(){
       dd.querySelector('#fp-dd-save').onclick = function(){
         var newName = dd.querySelector('#fp-dd-name').value.trim();
         var msg = dd.querySelector('#fp-dd-msg');
+        if(newName.length > 50){ msg.style.color='#f87171'; msg.textContent='Username must be 50 characters or less.'; return; }
         var updates = {};
         if(newName && newName !== user.displayName) updates.displayName = newName;
         var p1 = newName ? user.updateProfile({displayName: newName}) : Promise.resolve();

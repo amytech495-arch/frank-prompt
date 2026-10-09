@@ -1,5 +1,6 @@
 
 var CATALOG=[];
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 (function(){
   var grid = document.getElementById('grid');
   if(grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--gray)">Loading...</div>';
@@ -63,10 +64,10 @@ function filtered(){
   return list;
 }
 function cardHTML(p){
-  var img=p.thumb?'<img src="'+p.thumb+'" alt="" loading="lazy">':'<div class="cover-fallback">'+p.title.slice(0,60)+'</div>';
+  var img=p.thumb?'<img src="'+esc(p.thumb)+'" alt="" loading="lazy">':'<div class="cover-fallback">'+esc(p.title.slice(0,60))+'</div>';
   return '<article class="card"><div class="thumb">'+img+
     '<span class="tag-id">ID '+p.id+'</span><span class="tag-free">Free</span></div>'+
-    '<div class="body"><div class="cat">'+p.category+'</div><h3>'+p.title+'</h3>'+
+    '<div class="body"><div class="cat">'+esc(p.category)+'</div><h3>'+esc(p.title)+'</h3>'+
     '<div class="row"><button class="btn-sm">Save</button></div>'+
     '<div class="foot"><span class="words">'+(p.words?p.words.toLocaleString():'—')+' <span data-i18n="words">words</span></span>'+
     '<span class="actions"><a class="btn-sm" href="/prompt/'+p.id+'">Preview</a>'+

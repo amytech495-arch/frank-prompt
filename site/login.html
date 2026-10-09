@@ -36,10 +36,10 @@
 <script>
 document.getElementById('go').onclick = function(){
   var e=document.getElementById('email').value, p=document.getElementById('pw').value;
-  fpSignIn(e,p).then(function(){location.href='/'}).catch(function(err){document.getElementById('err').textContent=err.message});
+  fpSignIn(e,p).then(function(){location.href='/'}).catch(function(err){document.getElementById('err').textContent='Invalid email or password.'});
 };
 document.getElementById('google').onclick = function(){
-  fpGoogle().then(function(){location.href='/'}).catch(function(err){document.getElementById('err').textContent=err.message});
+  fpGoogle().then(function(){location.href='/'}).catch(function(err){document.getElementById('err').textContent='Invalid email or password.'});
 };
 fpCheckRedirect().then(function(res){ if(res && res.user) location.href='/'; });
 </script>
