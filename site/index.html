@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Frank Prompt · The creator's prompt library</title>
 <meta name="description" content="Find a prompt. Make it yours. Create something remarkable.">
-<link rel="stylesheet" href="/assets/style.css"></head>
+<link rel="stylesheet" href="/assets/style.css?v=2"></head>
 <body>
 
 <header class="site"><div class="wrap hd-in">
@@ -40,6 +40,7 @@
       <div class="fld" style="flex:2"><input type="text" id="q" data-i18n-ph="searchPh" placeholder="Search by title, topic or ID..."></div>
       <div class="fld" style="flex:0"><label>&nbsp;</label><button class="btn-gold" id="searchBtn" data-i18n="search">Search</button></div>
       <div class="fld" style="flex:0"><label>&nbsp;</label><button class="btn-ghost" id="surpriseBtn" data-i18n="surprise">Surprise me</button></div>
+      <div class="fld" style="flex:0"><label>&nbsp;</label><button class="btn-ghost" id="savedBtn" data-i18n="savedFilter">♥ Saved</button></div>
       <div class="fld"><label data-i18n="category">Category</label><select id="catSel"><option value="all" data-i18n="category">All categories</option><option value="ASMR &amp; Satisfying">ASMR &amp; Satisfying</option><option value="Animal &amp; Pets">Animal &amp; Pets</option><option value="Art &amp; Animation">Art &amp; Animation</option><option value="Comedy &amp; Entertainment">Comedy &amp; Entertainment</option><option value="DIY &amp; Crafts">DIY &amp; Crafts</option><option value="Emotional &amp; Inspirational">Emotional &amp; Inspirational</option><option value="Fantasy &amp; Sci-Fi">Fantasy &amp; Sci-Fi</option><option value="Food &amp; Cooking">Food &amp; Cooking</option><option value="General">General</option><option value="Historical &amp; Nostalgia">Historical &amp; Nostalgia</option><option value="Kids &amp; Family">Kids &amp; Family</option><option value="Nature &amp; Wildlife">Nature &amp; Wildlife</option><option value="Sports &amp; Action">Sports &amp; Action</option></select></div>
       <div class="fld"><label data-i18n="sortBy">Sort by</label><select id="sortSel"><option value="new" data-i18n="newest">Newest first</option><option value="old" data-i18n="oldest">Oldest first</option><option value="az" data-i18n="az">A–Z</option></select></div>
     </div>
@@ -69,9 +70,9 @@
   <div class="ft-grid">
     <div><a class="logo" href="/"><span class="fp">FP</span><span>Frank <span class="pm-gold">Prompt.</span></span></a>
       <p class="ft-tag" data-i18n="tagline">Unlock your creative potential with expertly crafted AI prompts.</p></div>
-    <div><h4>Product</h4><a href="/#library">Library</a><a href="/#pricing" data-i18n="pricing">Pricing</a><a href="/#how" data-i18n="how">How to use</a></div>
-    <div><h4>Company</h4><a href="/about">About</a><a href="/contact">Contact</a><a href="/faq">FAQ</a></div>
-    <div><h4>Account</h4><a href="/login" data-i18n="login">Log in</a><a href="/signup" data-i18n="signup">Sign up</a></div>
+    <div><h4 data-i18n="product">Product</h4><a href="/#library" data-i18n="libraryLink">Library</a><a href="/#pricing" data-i18n="pricing">Pricing</a><a href="/#how" data-i18n="how">How to use</a></div>
+    <div><h4 data-i18n="company">Company</h4><a href="/about" data-i18n="aboutLink">About</a><a href="/contact" data-i18n="contactLink">Contact</a><a href="/faq" data-i18n="faqLink">FAQ</a></div>
+    <div><h4 data-i18n="accountHd">Account</h4><a href="/login" data-i18n="login">Log in</a><a href="/signup" data-i18n="signup">Sign up</a></div>
   </div>
   <div class="watermark">FRANK</div>
   <div class="copy">© 2026 Frank Prompt. <span data-i18n="rights">All rights reserved.</span></div>
@@ -79,8 +80,8 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="/assets/i18n.js?v=3"></script>
-<script src="/assets/firebase.js?v=5"></script>
+<script src="/assets/i18n.js?v=4"></script>
+<script src="/assets/firebase.js?v=6"></script>
 
-<script src="/assets/home.js"></script>
+<script src="/assets/home.js?v=2"></script>
 </body></html>
