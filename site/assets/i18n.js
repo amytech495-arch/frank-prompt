@@ -188,3 +188,12 @@ document.addEventListener('DOMContentLoaded',function(){fpSetLang(fpLang());
     }).catch(function(){});
   });
 })();
+
+/* Redirect Contact links to WhatsApp */
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('a[href="/contact"]').forEach(function(a){
+    a.href = 'https://wa.me/2347052092356';
+    a.target = '_blank';
+    a.rel = 'noopener';
+  });
+});
