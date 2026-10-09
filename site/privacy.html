@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy Policy · Frank Prompt</title>
+<link rel="stylesheet" href="/assets/style.css">
+</head><body>
+<header class="site"><div class="wrap hd-in">
+  <a class="logo" href="/"><span class="fp">FP</span><span>Frank <span class="pm-gold">Prompt.</span></span></a>
+  <nav class="nav"><a href="/" class="" data-i18n="home">Home</a><a href="/#library" data-i18n="library">My library</a><a href="/#how" data-i18n="how">How to use</a><a href="/#pricing" data-i18n="pricing">Pricing</a></nav>
+  <div class="hd-right">
+    <select class="lang" id="langSel" aria-label="Language"><option value="en">English</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="ar">العربية</option><option value="hi">हिन्दी</option><option value="ur">اردو</option></select>
+    <a class="btn-login" href="/login" data-i18n="login">Log in</a>
+    <a class="btn-gold btn-sm-hd" href="/signup" data-i18n="signup">Sign up</a>
+    <span class="theme"><span class="switch" id="themeSw" role="switch" aria-checked="false" tabindex="0"></span></span>
+  </div>
+</div></header>
+
+<div class="wrap"><div class="panel" style="max-width:720px;margin:60px auto">
+
+<h2>Privacy Policy</h2>
+<p class="desc" style="margin:12px 0">Last updated: October 9, 2026</p>
+
+<h4 style="margin-top:24px">1. What we collect</h4>
+<p class="desc"><strong>Account information.</strong> When you sign up, we collect your email address and, if you use Google sign-in, your name and profile information from Google. We use Firebase Authentication (Google) to manage accounts securely.</p>
+<p class="desc" style="margin-top:8px"><strong>Usage data.</strong> We store which prompts you save or interact with, tied to your account, so your library works across devices. This is stored in Google Firestore.</p>
+<p class="desc" style="margin-top:8px"><strong>Preferences.</strong> Your language choice and theme (dark/light mode) are stored locally in your browser via localStorage. This never leaves your device.</p>
+
+<h4 style="margin-top:24px">2. How we store it</h4>
+<p class="desc">Your account and prompt data is stored on <strong>Google Firebase</strong> (Firestore database) with industry-standard encryption in transit and at rest. Access is restricted by security rules so only you can read your own data — other users cannot see your account or saved prompts.</p>
+
+<h4 style="margin-top:24px">3. How we use it</h4>
+<p class="desc">We use your data solely to operate Frank Prompt: authenticating you, showing your saved prompts, and improving the service. We do <strong>not</strong> sell your personal information to third parties.</p>
+
+<h4 style="margin-top:24px">4. Third-party services</h4>
+<p class="desc">We use the following services, each with their own privacy policies:</p>
+<ul class="desc" style="margin:8px 0 0 20px;list-style:disc">
+<li><strong>Google Firebase</strong> — authentication and database</li>
+<li><strong>Google Sign-In</strong> — optional login method</li>
+<li><strong>Vercel</strong> — website hosting</li>
+</ul>
+
+<h4 style="margin-top:24px">5. Cookies and local storage</h4>
+<p class="desc">We use browser localStorage to remember your language, theme, and login session. We do not use third-party advertising cookies.</p>
+
+<h4 style="margin-top:24px">6. Your rights</h4>
+<p class="desc">You may request a copy of your data or ask us to delete your account and all associated data at any time by contacting us on <a href="https://wa.me/2347052092356" target="_blank" rel="noopener" style="color:var(--gold)">WhatsApp</a>. Deleting your account removes your profile and saved prompts from our database.</p>
+
+<h4 style="margin-top:24px">7. Children's privacy</h4>
+<p class="desc">Frank Prompt is not directed at children under 13. We do not knowingly collect data from children under 13.</p>
+
+<h4 style="margin-top:24px">8. Changes</h4>
+<p class="desc">We may update this policy from time to time. Significant changes will be noted here with a revised date.</p>
+
+</div></div>
+<footer><div class="wrap">
+  <div class="ft-grid">
+    <div><a class="logo" href="/"><span class="fp">FP</span><span>Frank <span class="pm-gold">Prompt.</span></span></a>
+      <p class="ft-tag" data-i18n="tagline">Unlock your creative potential with expertly crafted AI prompts.</p></div>
+    <div><h4>Product</h4><a href="/#library">Library</a><a href="/#pricing" data-i18n="pricing">Pricing</a><a href="/#how" data-i18n="how">How to use</a></div>
+    <div><h4>Company</h4><a href="/about">About</a><a href="https://wa.me/2347052092356" target="_blank" rel="noopener">Contact</a><a href="/faq">FAQ</a></div>
+    <div><h4>Account</h4><a href="/login" data-i18n="login">Log in</a><a href="/signup" data-i18n="signup">Sign up</a></div>
+  </div>
+  <div class="watermark">FRANK</div>
+  <div class="copy">© 2026 Frank Prompt. <span data-i18n="rights">All rights reserved.</span></div>
+</div></footer>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="/assets/i18n.js"></script>
+<script src="/assets/firebase.js"></script>
+<script>
+(function(){var s=document.getElementById('themeSw');if(!s)return;
+function setL(l){document.body.classList.toggle('light',l);s.setAttribute('aria-checked',l?'true':'false');try{localStorage.setItem('fp-theme',l?'light':'dark')}catch(e){}}
+try{if(localStorage.getItem('fp-theme')==='light')setL(true);}catch(e){}
+s.addEventListener('click',function(){setL(!document.body.classList.contains('light'))});
+})();
+</script>
+
+<script src="/assets/i18n.js"></script>
+</body></html>

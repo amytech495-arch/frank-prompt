@@ -197,3 +197,13 @@ document.addEventListener('DOMContentLoaded', function(){
     a.rel = 'noopener';
   });
 });
+
+/* Add Privacy link to footer */
+document.addEventListener('DOMContentLoaded', function(){
+  var acct = document.querySelector('.ft-grid > div:last-child');
+  if(acct && !acct.querySelector('a[href="/privacy"]')){
+    var a = document.createElement('a');
+    a.href = '/privacy'; a.textContent = 'Privacy';
+    acct.appendChild(a);
+  }
+});
