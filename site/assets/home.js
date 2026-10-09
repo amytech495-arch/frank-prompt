@@ -1,6 +1,45 @@
 
 var CATALOG=[];
-fetch('/assets/catalog.json').then(function(r){return r.json()}).then(function(j){CATALOG=j;render();});
+function loadFromFirestore(){
+  return firebase.firestore().collection('prompts').get().then(function(snap){
+    var arr = [];
+    snap.forEach(function(doc){ arr.push(doc.data()); });
+    // Sort by id descending (newest first) by default
+    arr.sort(function(a,b){ return b.id - a.id; });
+    return arr;
+  });
+}
+function showLoginRequired(){
+  var grid = document.getElementById('grid');
+  if(grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;">'
+    + '<div style="font-size:48px;margin-bottom:16px;">🔒</div>'
+    + '<h3>Log in to browse prompts</h3>'
+    + '<p style="color:var(--gray);margin:12px 0 24px">Create a free account to unlock all 361 prompts.</p>'
+    + '<a href="/login" class="btn-gold" style="display:inline-block;padding:12px 32px;text-decoration:none">Log in</a></div>';
+  var count = document.getElementById('count');
+  if(count) count.textContent = '';
+}
+// Wait for Firebase auth, then load from Firestore (requires login per security rules)
+if(window.firebase && firebase.apps.length){
+  firebase.auth().onAuthStateChanged(function(user){
+    if(user){
+      loadFromFirestore().then(function(arr){ CATALOG = arr; render(); })
+        .catch(function(e){ console.error('Firestore load failed:', e); showLoginRequired(); });
+    } else {
+      showLoginRequired();
+    }
+  });
+} else {
+  // Firebase not ready yet, retry shortly
+  setTimeout(function(){
+    if(window.firebase && firebase.apps.length){
+      firebase.auth().onAuthStateChanged(function(user){
+        if(user){ loadFromFirestore().then(function(arr){ CATALOG = arr; render(); }); }
+        else showLoginRequired();
+      });
+    } else showLoginRequired();
+  }, 1500);
+}
 var state={q:'',cat:'all',sort:'new',page:1};var PER=12;
 function filtered(){
   var q=state.q.trim().toLowerCase();
@@ -29,7 +68,7 @@ function render(){
   var list=filtered();var pages=Math.max(1,Math.ceil(list.length/PER));
   if(state.page>pages)state.page=pages;
   var slice=list.slice((state.page-1)*PER,state.page*PER);
-  document.getElementById('grid').innerHTML=slice.map(cardHTML).join('');applyI18n()||'<p style="color:var(--gray)">No prompts found.</p>';
+  document.getElementById('grid').innerHTML=slice.map(cardHTML).join('');applyI18n();applyI18n()||'<p style="color:var(--gray)">No prompts found.</p>';
   document.getElementById('count').innerHTML='<b>'+list.length+'</b> prompts';
   document.getElementById('showing').textContent='Showing '+((state.page-1)*PER+1)+'–'+Math.min(state.page*PER,list.length)+' of '+list.length;
   var pg=document.getElementById('pager');var h='';
@@ -40,7 +79,7 @@ function render(){
   if(state.page<pages-2)h+='<span>...</span>';
   if(pages>1)btn(pages,String(pages),state.page===pages);
   if(state.page<pages)btn(state.page+1,'Next',false);
-  pg.innerHTML=h;applyI18n();
+  pg.innerHTML=h;applyI18n();applyI18n();
   pg.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();state.page=+a.dataset.p;render();document.getElementById('grid').scrollIntoView({behavior:'smooth',block:'start'});});});
 }
 window.addEventListener('DOMContentLoaded',function(){
