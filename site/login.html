@@ -58,55 +58,55 @@
 <header class="auth-header">
   <a class="logo" href="/"><span class="fp">FP</span><span>Frank <span class="pm-gold">Prompt.</span></span></a>
   <nav class="auth-nav">
-    <a class="btn-hd-signup" href="/signup">Sign up</a>
-    <a class="btn-hd-signin" href="/login">Sign in</a>
+    <a class="btn-hd-signup" href="/signup" data-i18n="signup">Sign up</a>
+    <a class="btn-hd-signin" href="/login" data-i18n="login">Sign in</a>
   </nav>
 </header>
 
 <main class="auth-main">
   <section class="auth-left">
-    <div class="eyebrow">FOR THE IDEAS WORTH MAKING</div>
-    <h1>Welcome back.<br><span class="serif">Pick up where you left off.</span></h1>
-    <p class="lede">Log in to browse your library, save new favourites, and keep creating.</p>
+    <div class="eyebrow" data-i18n="authEyebrow">FOR THE IDEAS WORTH MAKING</div>
+    <h1><span data-i18n="liTitleA">Welcome back.</span><br><span class="serif" data-i18n="liTitleB">Pick up where you left off.</span></h1>
+    <p class="lede" data-i18n="liLede">Log in to browse your library, save new favourites, and keep creating.</p>
     <div class="sample-card">
       <div class="sc-eyebrow"><span>THE CREATOR'S COLLECTION</span><span>⧉</span></div>
-      <h3>A quiet forest.<br>An unexpected discovery.</h3>
-      <p>Morning light breaks through the trees. A small movement changes everything.</p>
+      <h3><span data-i18n="sampleTitleA">A quiet forest.</span><br><span data-i18n="sampleTitleB">An unexpected discovery.</span></h3>
+      <p data-i18n="sampleDesc">Morning light breaks through the trees. A small movement changes everything.</p>
       <div class="sc-tags"><span>CINEMATIC</span><span>30 SECONDS</span><span>9:16</span></div>
     </div>
     <div class="auth-links">
-      <a href="/#library">✦ Find inspiration</a>
-      <a href="/signup">⧉ Save your favourites</a>
+      <a href="/#library">✦ <span data-i18n="findInsp">Find inspiration</span></a>
+      <a href="/signup">⧉ <span data-i18n="saveFav">Save your favourites</span></a>
     </div>
   </section>
 
   <section class="auth-right">
-    <div class="eyebrow">WELCOME BACK</div>
-    <h2>Log in to your account</h2>
-    <p class="sub">Your ideas are waiting for you.</p>
-    <button class="btn-google-dark" id="google"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38z"/></svg> <span style="color:#4285F4;font-weight:700">G</span>&nbsp;Continue with Google</button>
-    <div class="divider-dark">or continue with email</div>
+    <div class="eyebrow" data-i18n="liEyebrow">WELCOME BACK</div>
+    <h2 data-i18n="liFormTitle">Log in to your account</h2>
+    <p class="sub" data-i18n="liSub">Your ideas are waiting for you.</p>
+    <button class="btn-google-dark" id="google"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38z"/></svg> <span style="color:#4285F4;font-weight:700">G</span>&nbsp;<span data-i18n="contGoogle">Continue with Google</span></button>
+    <div class="divider-dark" data-i18n="orEmail">or continue with email</div>
     <div class="auth-err" id="err"></div>
-    <label class="field-label" for="email">Email address</label>
+    <label class="field-label" for="email" data-i18n="emailAddr">Email address</label>
     <input class="field-input" type="email" id="email" placeholder="you@example.com" autocomplete="email">
     <div style="height:16px"></div>
-    <label class="field-label" for="pw">Password</label>
+    <label class="field-label" for="pw" data-i18n="password">Password</label>
     <div class="pw-wrap">
-      <input class="field-input" type="password" id="pw" placeholder="Enter your password" autocomplete="current-password">
-      <button type="button" class="pw-toggle" id="pwToggle">Show</button>
+      <input class="field-input" type="password" id="pw" data-i18n-ph="enterPw" placeholder="Enter your password" autocomplete="current-password">
+      <button type="button" class="pw-toggle" id="pwToggle" data-i18n="show">Show</button>
     </div>
     <div style="display:flex;justify-content:flex-end;margin:10px 0 18px">
-      <a href="#" id="forgotPw" style="font-size:13px;color:#e8c15a;text-decoration:none">Forgot password?</a>
+      <a href="#" id="forgotPw" style="font-size:13px;color:#e8c15a;text-decoration:none" data-i18n="forgotPw">Forgot password?</a>
     </div>
-    <button class="btn-create" id="go">Log in <span>→</span></button>
-    <p class="auth-switch">No account yet? <a href="/signup">Sign up</a></p>
+    <button class="btn-create" id="go"><span data-i18n="loginBtn">Log in</span> <span>→</span></button>
+    <p class="auth-switch"><span data-i18n="noAcct">No account yet?</span> <a href="/signup" data-i18n="signupLink">Sign up</a></p>
   </section>
 </main>
 
 <footer class="auth-footer">
-  <span>© 2026 Frank Prompt</span>
-  <span class="mid">Interactive preview — use sample details only</span>
-  <span><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></span>
+  <span data-i18n="copy2026">© 2026 Frank Prompt</span>
+  <span class="mid" data-i18n="previewNote">Interactive preview — use sample details only</span>
+  <span><a href="/privacy" data-i18n="privacy">Privacy</a> · <a href="/terms" data-i18n="terms">Terms</a></span>
 </footer>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
