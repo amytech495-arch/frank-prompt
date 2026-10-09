@@ -167,3 +167,10 @@ body.light select option{background:#fff;color:#111}
   #fp-profile-dd{right:-40px !important;width:260px !important}
 }
 #hamburger{display:none;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:20px;color:var(--text)}
+
+/* Saved prompt button state */
+.btn-sm.btn-saved{border-color:var(--gold,#f5c518);color:var(--gold,#f5c518);background:rgba(245,197,24,.08)}
+/* Hide auth buttons until auth state resolves (prevents logged-out flash) */
+.hd-right .btn-login,.hd-right .btn-sm-hd{visibility:hidden}
+.hd-right.fp-auth-ready .btn-login,.hd-right.fp-auth-ready .btn-sm-hd{visibility:visible}
+.hd-right.fp-authed .btn-login,.hd-right.fp-authed .btn-sm-hd{display:none}
