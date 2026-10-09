@@ -19,14 +19,22 @@ function fpGoogle(){
   var provider = new firebase.auth.GoogleAuthProvider();
   // Force account selection to avoid stale-session bounce-back issues
   try { provider.setCustomParameters({prompt: 'select_account'}); } catch(e) {}
-  var isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-  // Mobile: use redirect directly (popups are unreliable on mobile browsers)
-  if(isMobile){
+  // Always add the email/profile scopes explicitly
+  try { provider.addScope('email'); provider.addScope('profile'); } catch(e) {}
+  var ua = navigator.userAgent || '';
+  var isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
+  // WebViews and in-app browsers can't handle popups reliably — use redirect
+  var isWebView = /\bwv\b|WebView|FBAN|FBAV|Instagram|Line\/|MicroMessenger/i.test(ua);
+  if(isMobile || isWebView){
     return fpAuth.signInWithRedirect(provider);
   }
-  // Desktop: try popup first, fall back to redirect if it fails
+  // Desktop: try popup first, fall back to redirect on ANY popup failure
+  // (not just blocked/closed — also network errors, cancelled requests, etc.)
   return fpAuth.signInWithPopup(provider).catch(function(err){
-    if(err.code==='auth/popup-blocked'||err.code==='auth/popup-closed-by-user'||err.code==='auth/argument-error'){
+    var popupErrors = ['auth/popup-blocked','auth/popup-closed-by-user','auth/argument-error',
+      'auth/cancelled-popup-request','auth/network-request-failed','auth/web-storage-unsupported',
+      'auth/internal-error'];
+    if(popupErrors.indexOf(err.code) !== -1){
       return fpAuth.signInWithRedirect(provider);
     }
     throw err;
@@ -249,8 +257,26 @@ document.addEventListener('DOMContentLoaded', function(){
     if(googleBtn){
       googleBtn.onclick = function(){
         if(agreeEl && !agreeEl.checked){ showErr('Please agree to the Terms and Privacy Policy.'); return; }
-        fpGoogle().then(function(){ location.href = '/'; })
-          .catch(function(err){ showErr(err.message); });
+        // Loading feedback so the tap is visibly acknowledged
+        var origHTML = googleBtn.innerHTML;
+        googleBtn.disabled = true;
+        googleBtn.style.opacity = '0.6';
+        googleBtn.style.cursor = 'wait';
+        function restoreBtn(){ try{ googleBtn.disabled = false; googleBtn.style.opacity = ''; googleBtn.style.cursor = ''; }catch(e){} }
+        try {
+          var p = fpGoogle();
+          // signInWithRedirect never settles (page navigates away) — that's expected.
+          // signInWithPopup resolves on success.
+          if(p && typeof p.then === 'function'){
+            p.then(function(){ location.href = '/'; })
+             .catch(function(err){ restoreBtn(); showErr(err && err.message ? err.message : String(err)); });
+          }
+        } catch(err){
+          restoreBtn();
+          showErr(err && err.message ? err.message : String(err));
+        }
+        // Safety: restore button after 15s in case something hung silently
+        setTimeout(restoreBtn, 15000);
       };
     }
 
