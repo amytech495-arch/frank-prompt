@@ -11,7 +11,23 @@ firebase.initializeApp(firebaseConfig);
 const fpAuth = firebase.auth();
 
 function fpOnAuth(cb){ fpAuth.onAuthStateChanged(cb); }
-function fpGoogle(){ return fpAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); }
+function fpGoogle(){
+  var provider = new firebase.auth.GoogleAuthProvider();
+  // Try popup first, fall back to redirect if it fails
+  return fpAuth.signInWithPopup(provider).catch(function(err){
+    if(err.code==='auth/popup-blocked'||err.code==='auth/popup-closed-by-user'||err.code==='auth/argument-error'){
+      return fpAuth.signInWithRedirect(provider);
+    }
+    throw err;
+  });
+}
+function fpCheckRedirect(){
+  return fpAuth.getRedirectResult().catch(function(err){
+    var el = document.getElementById('err');
+    if(el) el.textContent = err.message;
+  });
+}
+function fpSendVerification(){ var u = fpAuth.currentUser; return u ? u.sendEmailVerification() : Promise.reject(new Error('Not signed in')); }
 function fpSignUp(email, pw){ return fpAuth.createUserWithEmailAndPassword(email, pw); }
 function fpSignIn(email, pw){ return fpAuth.signInWithEmailAndPassword(email, pw); }
 function fpSignOut(){ return fpAuth.signOut(); }

@@ -36,11 +36,18 @@
 <script>
 document.getElementById('go').onclick = function(){
   var e=document.getElementById('email').value, p=document.getElementById('pw').value;
-  fpSignUp(e,p).then(function(){location.href='/'}).catch(function(err){document.getElementById('err').textContent=err.message});
+  fpSignUp(e,p).then(function(){
+    return fpSendVerification().then(function(){
+      document.getElementById('err').style.color='#4ade80';
+      document.getElementById('err').textContent='Account created! Check your email for a verification link, then log in.';
+      setTimeout(function(){location.href='/login'},3000);
+    });
+  }).catch(function(err){document.getElementById('err').textContent=err.message});
 };
 document.getElementById('google').onclick = function(){
   fpGoogle().then(function(){location.href='/'}).catch(function(err){document.getElementById('err').textContent=err.message});
 };
+fpCheckRedirect().then(function(res){ if(res && res.user) location.href='/'; });
 </script>
 
 </div></div>

@@ -41,6 +41,7 @@ document.getElementById('go').onclick = function(){
 document.getElementById('google').onclick = function(){
   fpGoogle().then(function(){location.href='/'}).catch(function(err){document.getElementById('err').textContent=err.message});
 };
+fpCheckRedirect().then(function(res){ if(res && res.user) location.href='/'; });
 </script>
 
 </div></div>
