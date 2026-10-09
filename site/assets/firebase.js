@@ -7,7 +7,7 @@ const firebaseConfig = {
   messagingSenderId: "290205670412",
   appId: "1:290205670412:web:b438cc174eb128d31b2229"
 };
-firebase.initializeApp(firebaseConfig);
+if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const fpAuth = firebase.auth();
 
 function fpOnAuth(cb){ fpAuth.onAuthStateChanged(cb); }

@@ -128,3 +128,51 @@ function applyI18n(){
 }
 document.addEventListener('DOMContentLoaded',function(){fpSetLang(fpLang());
   var sel=document.getElementById('langSel');if(sel)sel.addEventListener('change',function(){fpSetLang(sel.value);});});
+
+/* Auth gating: prompts require login */
+(function(){
+  if(window._fpGateInit) return; window._fpGateInit = true;
+  var CFG = {apiKey:"AIzaSyDGXh6r1gHnVU5xAMJbchm6JhASmmZvXGs",authDomain:"frank-prompt.firebaseapp.com",projectId:"frank-prompt"};
+  function load(src){return new Promise(function(res,rej){var s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+  function ensureFirebase(){
+    if(window.firebase && firebase.apps && firebase.apps.length) return Promise.resolve();
+    return load("https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js")
+      .then(function(){return load("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js");})
+      .then(function(){ if(!firebase.apps.length) firebase.initializeApp(CFG); });
+  }
+  function loginWall(){
+    return '<div style="max-width:480px;margin:80px auto;text-align:center;padding:40px 24px;">'
+      + '<div style="font-size:48px;margin-bottom:16px;">🔒</div>'
+      + '<h2>Log in to view this prompt</h2>'
+      + '<p style="color:var(--gray);margin:12px 0 24px">Create a free account to unlock all 361 prompts.</p>'
+      + '<a href="/login" class="btn-gold" style="display:inline-block;padding:12px 32px;text-decoration:none">Log in</a>'
+      + '<p style="margin-top:16px;font-size:13px;color:var(--gray)">No account? <a href="/signup" style="color:var(--gold)">Sign up free</a></p>'
+      + '</div>';
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var isPromptPage = /\/prompt\//.test(location.pathname);
+    var isAuthPage = /\/(login|signup)/.test(location.pathname);
+    if(isAuthPage) return;
+    ensureFirebase().then(function(){
+      firebase.auth().onAuthStateChanged(function(user){
+        if(user) return; // logged in, full access
+        if(isPromptPage){
+          // Hide prompt content, show login wall
+          var main = document.querySelector('.wrap') || document.body;
+          // Keep header/footer, replace content area
+          var panels = document.querySelectorAll('.panel');
+          panels.forEach(function(el){ el.style.display='none'; });
+          var wall = document.createElement('div');
+          wall.innerHTML = loginWall();
+          (document.querySelector('.wrap')||document.body).appendChild(wall);
+        } else {
+          // Homepage: intercept prompt clicks
+          document.addEventListener('click', function(e){
+            var card = e.target.closest('a[href^="/prompt/"]');
+            if(card){ e.preventDefault(); location.href='/login'; }
+          }, true);
+        }
+      });
+    }).catch(function(){});
+  });
+})();
