@@ -80,7 +80,7 @@ function render(){
   var slice=list.slice((state.page-1)*PER,state.page*PER);
   document.getElementById('grid').innerHTML=slice.map(cardHTML).join('');applyI18n();applyI18n()||'<p style="color:var(--gray)">No prompts found.</p>';
   document.getElementById('count').innerHTML='<b>'+list.length+'</b> prompts';
-  document.getElementById('showing').textContent='Showing '+((state.page-1)*PER+1)+'–'+Math.min(state.page*PER,list.length)+' of '+list.length;
+  document.getElementById('showing').textContent=(typeof fpT==='function'?fpT('showing'):'Showing')+' '+((state.page-1)*PER+1)+'–'+Math.min(state.page*PER,list.length)+' '+(typeof fpT==='function'?fpT('of'):'of')+' '+list.length;
   var pg=document.getElementById('pager');var h='';
   function btn(p,label,on){h+='<a href="#" data-p="'+p+'" class="'+(on?'on':'')+'">'+label+'</a>';}
   btn(1,'1',state.page===1);
