@@ -3,100 +3,135 @@
 <title>Sign up · Frank Prompt</title>
 <link rel="stylesheet" href="/assets/style.css">
 <style>
-.auth-box{max-width:420px;margin:70px auto}
-.auth-box input{margin:8px 0}
-.auth-err{color:#f87171;font-size:13px;min-height:20px;margin:6px 0}
-.btn-google{background:#fff;color:#111;border:1px solid var(--border);border-radius:10px;padding:12px;width:100%;font-weight:600;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px}
-.divider{display:flex;align-items:center;gap:12px;color:var(--dim);font-size:12px;margin:18px 0}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.auth-page{background:#0a0a0b;color:#fafafa;min-height:100vh;display:flex;flex-direction:column}
+.auth-header{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;border-bottom:1px solid #1c1c1f}
+.auth-header .logo{font-weight:700;font-size:17px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
+.auth-header .fp{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#e8c15a,#b98a2e);color:#111;font-size:13px;font-weight:800}
+.auth-header .pm-gold{color:#e8c15a}
+.auth-nav{display:flex;gap:10px;align-items:center}
+.btn-hd-signup{background:#e8c15a;color:#111;border:none;border-radius:8px;padding:9px 20px;font-weight:700;font-size:14px;cursor:pointer;text-decoration:none}
+.btn-hd-signin{background:#1c1c1f;color:#fff;border:1px solid #2a2a2e;border-radius:8px;padding:9px 20px;font-weight:600;font-size:14px;cursor:pointer;text-decoration:none}
+.auth-main{flex:1;display:grid;grid-template-columns:1fr 1fr;max-width:1200px;width:100%;margin:0 auto}
+.auth-left{padding:70px 60px;border-right:1px solid #1c1c1f;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{font-size:11px;letter-spacing:.22em;color:#e8c15a;font-weight:700;margin-bottom:20px}
+.auth-left h1{font-size:52px;line-height:1.08;font-weight:700;margin:0 0 18px;letter-spacing:-.01em}
+.auth-left h1 .serif{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400;color:#e8c15a}
+.auth-left .lede{color:#a1a1aa;font-size:16px;line-height:1.6;max-width:400px;margin-bottom:44px}
+.sample-card{background:#131316;border:1px solid #26262a;border-radius:14px;padding:26px;max-width:380px;transform:rotate(-1.5deg);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.sample-card .sc-eyebrow{font-size:10px;letter-spacing:.2em;color:#e8c15a;font-weight:700;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.sample-card h3{font-size:21px;line-height:1.35;margin:0 0 10px;font-weight:600}
+.sample-card p{color:#a1a1aa;font-size:14px;line-height:1.55;margin:0 0 16px}
+.sc-tags{display:flex;gap:8px;flex-wrap:wrap}
+.sc-tags span{font-size:10px;letter-spacing:.08em;border:1px solid #333338;border-radius:6px;padding:5px 10px;color:#d4d4d8;font-weight:600}
+.auth-links{display:flex;gap:28px;margin-top:36px;font-size:14px}
+.auth-links a{color:#d4d4d8;text-decoration:none;display:flex;align-items:center;gap:8px}
+.auth-links a:hover{color:#e8c15a}
+.auth-right{padding:70px 60px;display:flex;flex-direction:column;justify-content:center;max-width:520px}
+.auth-right h2{font-size:32px;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+.auth-right .sub{color:#a1a1aa;font-size:15px;margin-bottom:30px}
+.btn-google-dark{background:#fff;color:#111;border:none;border-radius:10px;padding:13px;width:100%;font-weight:600;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px}
+.divider-dark{display:flex;align-items:center;gap:14px;color:#63636a;font-size:12px;margin:22px 0}
+.divider-dark::before,.divider-dark::after{content:'';flex:1;height:1px;background:#26262a}
+.field-label{display:block;font-size:13px;color:#d4d4d8;margin:0 0 7px;font-weight:500}
+.field-input{width:100%;background:#131316;border:1px solid #2a2a2e;border-radius:10px;padding:13px 15px;font-size:15px;color:#fff;box-sizing:border-box}
+.field-input::placeholder{color:#52525b}
+.field-input:focus{outline:none;border-color:#e8c15a}
+.pw-wrap{position:relative}
+.pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#a1a1aa;font-size:13px;cursor:pointer;font-weight:600}
+.pw-toggle:hover{color:#fff}
+.field-hint{font-size:12px;color:#63636a;margin:7px 0 0}
+.auth-err{color:#f87171;font-size:13px;min-height:20px;margin:10px 0}
+.auth-ok{color:#4ade80;font-size:13px;min-height:20px;margin:10px 0}
+.agree-row{display:flex;align-items:flex-start;gap:10px;margin:18px 0;font-size:13px;color:#a1a1aa;cursor:pointer;line-height:1.5}
+.agree-row input{margin-top:2px;accent-color:#e8c15a;width:16px;height:16px;flex-shrink:0}
+.agree-row a{color:#e8c15a;text-decoration:none}
+.btn-create{background:#e8c15a;color:#111;border:none;border-radius:10px;padding:14px;width:100%;font-weight:700;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-create:disabled{opacity:.45;cursor:not-allowed}
+.auth-switch{text-align:center;margin-top:20px;font-size:14px;color:#a1a1aa}
+.auth-switch a{color:#e8c15a;text-decoration:none;font-weight:600}
+.auth-footer{border-top:1px solid #1c1c1f;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#63636a}
+.auth-footer .mid{color:#52525b}
+.auth-footer a{color:#a1a1aa;text-decoration:none;margin-left:6px}
+@media(max-width:900px){
+  .auth-main{grid-template-columns:1fr}
+  .auth-left{border-right:none;border-bottom:1px solid #1c1c1f;padding:44px 28px}
+  .auth-left h1{font-size:38px}
+  .auth-right{padding:44px 28px;max-width:none}
+  .auth-header,.auth-footer{padding-left:20px;padding-right:20px}
+}
 </style>
-</head><body>
-<header class="site"><div class="wrap hd-in">
+</head><body class="auth-page">
+<header class="auth-header">
   <a class="logo" href="/"><span class="fp">FP</span><span>Frank <span class="pm-gold">Prompt.</span></span></a>
-  <nav class="nav"><a href="/" class="" data-i18n="home">Home</a><a href="/#library" data-i18n="library">My library</a><a href="/#how" data-i18n="how">How to use</a><a href="/#pricing" data-i18n="pricing">Pricing</a></nav>
-  <div class="hd-right">
-    <select class="lang" id="langSel" aria-label="Language"><option value="en">English</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="ar">العربية</option><option value="hi">हिन्दी</option><option value="ur">اردو</option></select>
-    <a class="btn-login" href="/login" data-i18n="login">Log in</a>
-    <a class="btn-gold btn-sm-hd" href="/signup" data-i18n="signup">Sign up</a>
-    <span class="theme"><span class="switch" id="themeSw" role="switch" aria-checked="false" tabindex="0"></span></span>
-  </div>
-</div></header>
+  <nav class="auth-nav">
+    <a class="btn-hd-signup" href="/signup">Sign up</a>
+    <a class="btn-hd-signin" href="/login">Sign in</a>
+  </nav>
+</header>
 
-<div class="wrap"><div class="panel auth-box">
-<h2 style="text-align:center">Sign up</h2>
-<p class="desc" style="text-align:center;margin-top:8px">Welcome to Frank Prompt.</p>
-<div class="auth-err" id="err"></div>
+<main class="auth-main">
+  <section class="auth-left">
+    <div class="eyebrow">FOR THE IDEAS WORTH MAKING</div>
+    <h1>Your imagination.<br><span class="serif">A better starting point.</span></h1>
+    <p class="lede">Discover your next story, save your favourite prompts, and make something that feels like you.</p>
+    <div class="sample-card">
+      <div class="sc-eyebrow"><span>THE CREATOR'S COLLECTION</span><span>⧉</span></div>
+      <h3>A quiet forest.<br>An unexpected discovery.</h3>
+      <p>Morning light breaks through the trees. A small movement changes everything.</p>
+      <div class="sc-tags"><span>CINEMATIC</span><span>30 SECONDS</span><span>9:16</span></div>
+    </div>
+    <div class="auth-links">
+      <a href="/#library">✦ Find inspiration</a>
+      <a href="/signup">⧉ Save your favourites</a>
+    </div>
+  </section>
 
-<input type="email" id="email" placeholder="Email" autocomplete="email">
-<input type="password" id="pw" placeholder="Password (6+ characters)" autocomplete="new-password">
-<label style="display:flex;align-items:flex-start;gap:8px;margin:12px 0;font-size:13px;color:var(--gray);cursor:pointer">
-<input type="checkbox" id="agree" style="margin-top:3px;accent-color:var(--gold);width:16px;height:16px;flex-shrink:0">
-<span>I agree to the <a href="/terms" target="_blank" style="color:var(--gold)">Terms of Service</a> and <a href="/privacy" target="_blank" style="color:var(--gold)">Privacy Policy</a></span>
-</label>
-<button class="btn-gold" id="go" style="width:100%;margin-top:8px" disabled>Create account</button>
-<div class="divider">or</div>
-<button class="btn-google" id="google"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38z"/></svg> Continue with Google</button>
-<p style="text-align:center;margin-top:16px;font-size:13px;color:var(--gray)">Have an account? <a href="/login" style="color:var(--gold)">Log in</a></p>
-<script>
-document.getElementById('agree').onchange = function(){
-  document.getElementById('go').disabled = !this.checked;
-};
-document.getElementById('go').onclick = function(){
-  if(!document.getElementById('agree').checked){
-    document.getElementById('err').textContent='Please agree to the Terms and Privacy Policy.';
-    return;
-  }
-  var e=document.getElementById('email').value, p=document.getElementById('pw').value;
-  fpSignUp(e,p).then(function(){
-    return fpSendVerification().then(function(){
-      document.getElementById('err').style.color='#4ade80';
-      document.getElementById('err').textContent='Account created! Check your email for a verification link, then log in.';
-      setTimeout(function(){location.href='/login'},3000);
-    });
-  }).catch(function(err){document.getElementById('err').textContent=err.message});
-};
-document.getElementById('google').onclick = function(){
-  if(!document.getElementById('agree').checked){
-    document.getElementById('err').textContent='Please agree to the Terms and Privacy Policy.';
-    return;
-  }
-  fpGoogle().then(function(){location.href='/'}).catch(function(err){document.getElementById('err').textContent=err.message});
-};
-fpCheckRedirect().then(function(res){ if(res && res.user) location.href='/'; });
-</script>
+  <section class="auth-right">
+    <div class="eyebrow">START SOMETHING REMARKABLE</div>
+    <h2>Create your free account</h2>
+    <p class="sub">Your next great idea is waiting.</p>
+    <button class="btn-google-dark" id="google"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38z"/></svg> <span style="color:#4285F4;font-weight:700">G</span>&nbsp;Continue with Google</button>
+    <div class="divider-dark">or continue with email</div>
+    <div class="auth-err" id="err"></div>
+    <label class="field-label" for="email">Email address</label>
+    <input class="field-input" type="email" id="email" placeholder="you@example.com" autocomplete="email">
+    <div style="height:16px"></div>
+    <label class="field-label" for="pw">Password</label>
+    <div class="pw-wrap">
+      <input class="field-input" type="password" id="pw" placeholder="Create a password" autocomplete="new-password">
+      <button type="button" class="pw-toggle" id="pwToggle">Show</button>
+    </div>
+    <p class="field-hint">Use at least 12 characters for this design demo.</p>
+    <label class="agree-row">
+      <input type="checkbox" id="agree">
+      <span>I agree to the <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>.</span>
+    </label>
+    <button class="btn-create" id="go" disabled>Create free account <span>→</span></button>
+    <p class="auth-switch">Already have an account? <a href="/login">Sign in</a></p>
+  </section>
+</main>
 
-</div></div>
-<footer><div class="wrap">
-  <div class="ft-grid">
-    <div><a class="logo" href="/"><span class="fp">FP</span><span>Frank <span class="pm-gold">Prompt.</span></span></a>
-      <p class="ft-tag" data-i18n="tagline">Unlock your creative potential with expertly crafted AI prompts.</p></div>
-    <div><h4>Product</h4><a href="/#library">Library</a><a href="/#pricing" data-i18n="pricing">Pricing</a><a href="/#how" data-i18n="how">How to use</a></div>
-    <div><h4>Company</h4><a href="/about">About</a><a href="/contact">Contact</a><a href="/faq">FAQ</a></div>
-    <div><h4>Account</h4><a href="/login" data-i18n="login">Log in</a><a href="/signup" data-i18n="signup">Sign up</a></div>
-  </div>
-  <div class="watermark">FRANK</div>
-  <div class="copy">© 2026 Frank Prompt. <span data-i18n="rights">All rights reserved.</span></div>
-</div></footer>
+<footer class="auth-footer">
+  <span>© 2026 Frank Prompt</span>
+  <span class="mid">Interactive preview — use sample details only</span>
+  <span><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></span>
+</footer>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="/assets/i18n.js"></script>
 <script src="/assets/firebase.js"></script>
 <script>
-// Redirect already-logged-in users away from auth pages
-document.addEventListener('DOMContentLoaded', function(){
-  if(window.firebase && firebase.apps.length){
-    firebase.auth().onAuthStateChanged(function(user){
-      if(user) location.href = '/';
-    });
-  }
-});
+document.getElementById('pwToggle').onclick = function(){
+  var pw = document.getElementById('pw');
+  var show = pw.type === 'password';
+  pw.type = show ? 'text' : 'password';
+  this.textContent = show ? 'Hide' : 'Show';
+};
+if(document.getElementById('agree')){
+  document.getElementById('agree').onchange = function(){
+    document.getElementById('go').disabled = !this.checked;
+  };
+}
 </script>
-<script>
-(function(){var s=document.getElementById('themeSw');if(!s)return;
-function setL(l){document.body.classList.toggle('light',l);s.setAttribute('aria-checked',l?'true':'false');try{localStorage.setItem('fp-theme',l?'light':'dark')}catch(e){}}
-try{if(localStorage.getItem('fp-theme')==='light')setL(true);}catch(e){}
-s.addEventListener('click',function(){setL(!document.body.classList.contains('light'))});
-})();
-</script>
-
 </body></html>
