@@ -158,13 +158,25 @@ document.addEventListener('DOMContentLoaded',function(){fpSetLang(fpLang());
         if(user) return; // logged in, full access
         if(isPromptPage){
           // Hide prompt content, show login wall
-          var main = document.querySelector('.wrap') || document.body;
-          // Keep header/footer, replace content area
-          var panels = document.querySelectorAll('.panel');
-          panels.forEach(function(el){ el.style.display='none'; });
+          // Target: hero section, all content sections, prompt text
+          ['.hero-tan','.sect','.refgrid','.stat3'].forEach(function(sel){
+            document.querySelectorAll(sel).forEach(function(el){ el.style.display='none'; });
+          });
+          // Hide the main content wrap (the one containing hero-tan)
+          var hero = document.querySelector('.hero-tan');
+          if(hero){
+            var wrap = hero.closest('div.wrap');
+            if(wrap){
+              // Hide all siblings after subbar within this wrap
+              Array.from(wrap.children).forEach(function(ch){ ch.style.display='none'; });
+            }
+          }
+          // Hide any pre/code blocks with prompt text
+          document.querySelectorAll('pre, .prompt-text, .code-block').forEach(function(el){ el.style.display='none'; });
           var wall = document.createElement('div');
           wall.innerHTML = loginWall();
-          (document.querySelector('.wrap')||document.body).appendChild(wall);
+          var anchor = document.querySelector('.subbar') || document.body;
+          anchor.parentNode.insertBefore(wall, anchor.nextSibling);
         } else {
           // Homepage: intercept prompt clicks
           document.addEventListener('click', function(e){
